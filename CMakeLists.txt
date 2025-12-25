@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
-# --- ImGui (FetchContent) ---
 FetchContent_Declare(
   imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
@@ -14,8 +13,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(imgui)
 
-# --- SDL2 ---
-# Works with vcpkg (CONFIG) and with some system setups.
+
 find_package(SDL2 CONFIG QUIET)
 if(SDL2_FOUND)
   message(STATUS "Found SDL2 via CONFIG")
@@ -41,7 +39,6 @@ target_include_directories(imgui_lib PUBLIC
   ${imgui_SOURCE_DIR}/backends
 )
 
-# SDL2 include dirs / libs differ depending on find mode.
 if(TARGET SDL2::SDL2)
   target_link_libraries(imgui_lib PUBLIC SDL2::SDL2)
 else()
